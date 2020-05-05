@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Requests Form</title>
+</head>
+<body>
+<script ></script>   
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script>
+    $("#submit_button").click(function(work){                                                                                           
+        $.post("http://localhost:5000/global");
+    });    
+</script> 
+<form action="./send_request.html">
+	Email
+	<p></p>
+    <input type="email" name="person_email" required/>
+    <p></p>
+    Enter Threshold on First Route 
+    <p></p>
+    <input type="Number" name="requests" />
+    <p></p>
+    Enter Threshold on Second Route 
+    <p></p>
+    <input type="Number" name="requests" />
+    <p></p>
+    <input id="submit_button" type="submit" value="Submit" />
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>send Request to Routes</title>
+</head>
+<body>
+    <button onclick="DevRequest()">
+    	Access Developers Route
+    </button>
+    <p id="DevAnswerDisplay"></p>
+    <p></p>
+    <button onclick="OrgRequest()">
+    	Access Organisations Route
+    </button>
+    <p id="OrgAnsDisplay"></p>
+    <p></p>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>	
+    var str=window.location.search;
+    var count=0;
+    var CurrStr;
+    var EmailId,ThRoute1,ThRoute2;
+    for(var i=1;i<str.length;i++)
+    {    
+        if(count==2 && str[i]=='&')
+       	    ThRoute1=CurrStr;
+       	if(count==1 && str[i]=='&')
+       	    EmailId=CurrStr;
+       	CurrStr+=str[i];
+       	if(str[i]=='=')
+       	{
+            CurrStr=' ';
+            count++;
+       	}
+    }
+    ThRoute2=CurrStr;	  
+    console.log(EmailId);
+    console.log(ThRoute1);
+    console.log(ThRoute2);
+    reset=true
+    let message=
+    {
+    	ThRoute1:ThRoute1,
+    	ThRoute2:ThRoute2,
+        reset:reset
+    }
+    function DevRequest()
+    {                                                                                        
+        $.post("http://localhost:5000/developers",JSON.stringify(message),function(response){
+            document.getElementById('DevAnswerDisplay').innerHTML =response;
+            console.log(response)
+        }).fail(function(){
+           document.getElementById('DevAnswerDisplay').innerHTML ="Request Limit Exceeded";
+        });
+        document.getElementById('DevAnswerDisplay').innerHTML="";
+        count++;
+        message.reset=false;
+    }
+    function OrgRequest()
+    {
+        $.post("http://localhost:5000/organisations",JSON.stringify(message),function(response){
+            document.getElementById('OrgAnsDisplay').innerHTML =response;
+            console.log(response)
+        }).fail(function(){
+           document.getElementById('OrgAnsDisplay').innerHTML ="Request Limit Exceeded";
+        });   
+        document.getElementById('OrgAnsDisplay').innerHTML="";
+        count++;
+        message.reset=false;
+    }
+    </script>
+</body>
+</html>
+
+
+
